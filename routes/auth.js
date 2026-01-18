@@ -5,10 +5,11 @@ const router = express.Router();
 const ADMIN_EMAIL = "admin@campusmart.com";
 const ADMIN_PASSWORD = "123456";
 
+const isProduction = process.env.NODE_ENV === "production";
 const cookieOptions = {
   httpOnly: true,
-  sameSite: "lax",
-  secure: process.env.NODE_ENV === "production",
+  sameSite: isProduction ? "none" : "lax",
+  secure: isProduction,
 };
 
 router.post("/login", (req, res) => {
